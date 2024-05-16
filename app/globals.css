@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+    h1 {
+        @apply text-[1.5rem] text-primary-50 font-medium font-sans;    }
+
+    h2 {
+        @apply text-2xl text-primary-50 font-medium font-sans;
+    }
+
+    h3 {
+        @apply text-xl text-dark-50 font-normal font-sans;
+    }
+
+    p {
+        @apply text-dark-50 text-base font-normal font-serif;
+    }
+
+}
