@@ -9,11 +9,17 @@ interface Gardener {
   firstname: string;
   lastname: string;
   caution: boolean;
+  tel: number;
+  mail: string;
+  cotisation: boolean;
+  assurance: boolean;
 }
 
 const GardenerCards = () => {
   const [openModal, setOpenModal] = useState(false);
-  const [selectedGardener, setSelectedGardener] = useState<Gardener | null>(null);
+  const [selectedGardener, setSelectedGardener] = useState<Gardener | null>(
+    null
+  );
 
   const [gardeners, setGardeners] = useState<Gardener[]>([]);
   const handleOpenModal = (gardener: Gardener) => {
@@ -53,7 +59,9 @@ const GardenerCards = () => {
         >
           {gardener.lastname} {gardener.firstname}
           <div
-            className={`w-3 h-3 rounded-full ${isValid(gardener.caution) ? "bg-green-500" : "bg-red-500"}`}
+            className={`w-3 h-3 rounded-full ${
+              isValid(gardener.caution) ? "bg-green-500" : "bg-red-500"
+            }`}
           ></div>
         </button>
       ))}
@@ -61,6 +69,7 @@ const GardenerCards = () => {
         <GardenerInformations
           gardenerInformations={selectedGardener}
           handleCloseModal={() => setOpenModal(false)}
+          isValid={isValid}
         />
       )}
     </div>

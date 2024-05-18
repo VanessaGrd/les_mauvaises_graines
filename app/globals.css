@@ -12,11 +12,11 @@
     }
 
     h3 {
-        @apply text-xl text-dark-50 font-normal font-sans;
+        @apply text-xl text-primary-50 font-normal font-sans;
     }
 
     p {
-        @apply text-dark-50 text-base font-normal font-serif;
+        @apply text-primary-50 text-base font-normal font-sans;
     }
 
 }
