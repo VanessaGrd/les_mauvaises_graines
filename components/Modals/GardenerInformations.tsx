@@ -1,6 +1,7 @@
 import { Box, Modal } from "@mui/material";
 import Check from "../../public/Check";
 import Cross from "../../public/Cross";
+import Button from "../Button";
 interface GardenerInformationsProps {
   gardenerInformations?: {
     id: number;
@@ -28,7 +29,7 @@ const GardenerInformations: React.FC<GardenerInformationsProps> = ({
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    height: 368,
+    height: 500,
     backgroundColor: "#FFFFFF",
     borderRadius: "0.625rem",
     boxShadow: 24,
@@ -55,7 +56,7 @@ const GardenerInformations: React.FC<GardenerInformationsProps> = ({
       <Box sx={style}>
         <div className="w-full flex justify-around flex-col items-center">
           <div className="w-2/6 flex flex-row items-center justify-around">
-            <h3 className="text-center ">
+            <h3 className="text-center font-bold">
               {gardenerInformations?.firstname} {gardenerInformations?.lastname}
             </h3>
             <div
@@ -66,9 +67,9 @@ const GardenerInformations: React.FC<GardenerInformationsProps> = ({
               }`}
             ></div>
           </div>
-          <form className="w-2/3 mx-auto">
-            <div className="flex flex-row">
-              <div className="flex flex-col">
+          <form className="justify-center text-primary-50 bg-blue-200 md:w-5/6 w-1/3">
+            <div className="flex flex-col md:flex-row">
+              <div className=" flex flex-col mr-8">
                 <label className="font-medium" htmlFor="firstname">
                   Prénom
                 </label>
@@ -76,7 +77,7 @@ const GardenerInformations: React.FC<GardenerInformationsProps> = ({
                   type="text"
                   id="firstname"
                   aria-label="firstname"
-                  className="mb-5 p-2 bg-gray-200 border border-gray-300 text-primary-50 text-sm rounded-lg w-4/5"
+                  className="mb-5 p-2 bg-gray-200 border border-gray-300 text-primary-50 text-sm rounded-lg "
                   value={gardenerInformations.firstname}
                   disabled
                   readOnly
@@ -90,7 +91,7 @@ const GardenerInformations: React.FC<GardenerInformationsProps> = ({
                   type="text"
                   id="lastname"
                   aria-label="lastname"
-                  className="mb-5 p-2 bg-gray-200 border border-gray-300 text-primary-50 text-sm rounded-lg w-4/5"
+                  className="mb-5 p-2 bg-gray-200 border border-gray-300 text-primary-50 text-sm rounded-lg"
                   value={gardenerInformations.lastname}
                   disabled
                   readOnly
@@ -98,15 +99,15 @@ const GardenerInformations: React.FC<GardenerInformationsProps> = ({
               </div>
             </div>
             <div className="flex flex-row">
-              <div className="flex flex-col">
-                <label htmlFor="firstname" className="font-medium">
+              <div className="flex flex-col mr-8">
+                <label htmlFor="firstname" className="font-medium ">
                   Mail
                 </label>
                 <input
                   type="text"
                   id="mail"
                   aria-label="mail"
-                  className="mb-5 p-2 bg-gray-200 border border-gray-300 text-primary-50 text-sm rounded-lg w-4/5"
+                  className="mb-5 p-2 bg-gray-200 border border-gray-300 text-primary-50 text-sm rounded-lg"
                   value={gardenerInformations.mail}
                   disabled
                   readOnly
@@ -120,7 +121,7 @@ const GardenerInformations: React.FC<GardenerInformationsProps> = ({
                   type="text"
                   id="phone"
                   aria-label="phone"
-                  className="mb-5 p-2 bg-gray-200 border border-gray-300 text-primary-50 text-sm rounded-lg w-4/5"
+                  className="mb-5 p-2 border bg-gray-200 border-gray-300 text-primary-50 text-sm rounded-lg "
                   value={gardenerInformations.tel}
                   disabled
                   readOnly
@@ -128,20 +129,47 @@ const GardenerInformations: React.FC<GardenerInformationsProps> = ({
               </div>
             </div>
           </form>
-          <ul className="w-3/12 flex flex-col justify-between">
-            <li className="flex flex-row items-center justify-between">
-              <span>Cotisation </span>
-              {isValid(gardenerInformations.cotisation) ? <Check /> : <Cross />}
-            </li>
-            <li className="flex flex-row items-center justify-between">
-              <span>Assurance</span>
-              {isValid(gardenerInformations.assurance) ? <Check /> : <Cross />}
-            </li>
-            <li className="flex flex-row items-center justify-between">
-              <span>Caution</span>
-              {isValid(gardenerInformations.caution) ? <Check /> : <Cross />}
-            </li>
-          </ul>
+
+          <div
+            className="flex flex-row
+         w-5/6 justify-between bg-green-200"
+          >
+            <ul className="lg:w-1/3 w-1/2flex flex-col justify-between bg-red-200">
+              <li className="flex flex-row items-center justify-between">
+                <span>Cotisation </span>
+                {isValid(gardenerInformations.cotisation) ? (
+                  <Check />
+                ) : (
+                  <Cross />
+                )}
+              </li>
+              <li className="flex flex-row items-center justify-between">
+                <span>Assurance</span>
+                {isValid(gardenerInformations.assurance) ? (
+                  <Check />
+                ) : (
+                  <Cross />
+                )}
+              </li>
+              <li className="flex flex-row items-center justify-between">
+                <span>Caution</span>
+                {isValid(gardenerInformations.caution) ? <Check /> : <Cross />}
+              </li>
+            </ul>
+            <div className="flex flex-col justify-between border-2 drop-shadow-sm rounded-lg  p-2 w-1/3">
+              <h4 className="text-center font-medium">Evènements</h4>
+              <ul>
+                <li>Corvées : 2</li> <li>Locations : 2</li>
+              </ul>
+            </div>
+          </div>
+          <div className="w-1/3 flex flex-row justify-around">
+            <Button buttonTitle="Modifier" />
+            <Button
+              buttonTitle="Supprimer"
+              buttonClassName="bg-secondary-100"
+            />
+          </div>
         </div>
       </Box>
     </Modal>
