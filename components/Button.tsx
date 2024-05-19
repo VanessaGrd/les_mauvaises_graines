@@ -5,7 +5,7 @@ interface IButtonProps {
 
 const Button = ({ buttonTitle, buttonClassName }: IButtonProps) => {
   const defaultClassName =
-    "text-secondary-50 bg-primary-50 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center";
+    "text-secondary-50 bg-primary-50 hover:bg-primary-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center";
 
   
   const className = buttonClassName ? `${defaultClassName} ${buttonClassName}` : defaultClassName;

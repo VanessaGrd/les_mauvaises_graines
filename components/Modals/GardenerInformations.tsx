@@ -29,16 +29,19 @@ const GardenerInformations: React.FC<GardenerInformationsProps> = ({
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    height: 500,
     backgroundColor: "#FFFFFF",
     borderRadius: "0.625rem",
     boxShadow: 24,
     padding: 4,
     width: {
-      xs: "300px",
-      sm: "420px",
-      md: "630px",
-      lg: "800px",
+      xs: "350px",
+      sm: "700px",
+      md: "750px",
+    },
+    height: {
+      xs: "700px",
+      sm: "600px",
+      md: "500px",
     },
   };
 
@@ -55,8 +58,8 @@ const GardenerInformations: React.FC<GardenerInformationsProps> = ({
     >
       <Box sx={style}>
         <div className="w-full flex justify-around flex-col items-center">
-          <div className="w-2/6 flex flex-row items-center justify-around">
-            <h3 className="text-center font-bold">
+          <div className="flex flex-row items-center justify-around w-fit">
+            <h3 className="text-center font-bold mr-2">
               {gardenerInformations?.firstname} {gardenerInformations?.lastname}
             </h3>
             <div
@@ -67,9 +70,9 @@ const GardenerInformations: React.FC<GardenerInformationsProps> = ({
               }`}
             ></div>
           </div>
-          <form className="justify-center text-primary-50 bg-blue-200 md:w-5/6 w-1/3">
-            <div className="flex flex-col md:flex-row">
-              <div className=" flex flex-col mr-8">
+          <form className=" text-primary-50 w-full">
+            <div className="flex flex-col md:flex-row justify-center">
+              <div className=" flex flex-col mr-0 md:mr-8 ">
                 <label className="font-medium" htmlFor="firstname">
                   Prénom
                 </label>
@@ -77,7 +80,7 @@ const GardenerInformations: React.FC<GardenerInformationsProps> = ({
                   type="text"
                   id="firstname"
                   aria-label="firstname"
-                  className="mb-5 p-2 bg-gray-200 border border-gray-300 text-primary-50 text-sm rounded-lg "
+                  className="mb-5 p-2 bg-gray-200 border border-gray-300 text-primary-50 text-sm rounded-lg"
                   value={gardenerInformations.firstname}
                   disabled
                   readOnly
@@ -98,8 +101,8 @@ const GardenerInformations: React.FC<GardenerInformationsProps> = ({
                 />
               </div>
             </div>
-            <div className="flex flex-row">
-              <div className="flex flex-col mr-8">
+            <div className="flex md:flex-row flex-col justify-center ">
+              <div className="flex flex-col mr-0 md:mr-8">
                 <label htmlFor="firstname" className="font-medium ">
                   Mail
                 </label>
@@ -132,9 +135,9 @@ const GardenerInformations: React.FC<GardenerInformationsProps> = ({
 
           <div
             className="flex flex-row
-         w-5/6 justify-between bg-green-200"
+        w-full justify-between px-0 sm:px-12"
           >
-            <ul className="lg:w-1/3 w-1/2flex flex-col justify-between bg-red-200">
+            <ul className="flex flex-col justify-between w-1/2 sm:w-2/6">
               <li className="flex flex-row items-center justify-between">
                 <span>Cotisation </span>
                 {isValid(gardenerInformations.cotisation) ? (
@@ -156,18 +159,18 @@ const GardenerInformations: React.FC<GardenerInformationsProps> = ({
                 {isValid(gardenerInformations.caution) ? <Check /> : <Cross />}
               </li>
             </ul>
-            <div className="flex flex-col justify-between border-2 drop-shadow-sm rounded-lg  p-2 w-1/3">
+            <div className="flex flex-col justify-between border-2 drop-shadow-sm rounded-lg  p-2 w-1/2 sm:w-1/3">
               <h4 className="text-center font-medium">Evènements</h4>
               <ul>
                 <li>Corvées : 2</li> <li>Locations : 2</li>
               </ul>
             </div>
           </div>
-          <div className="w-1/3 flex flex-row justify-around">
+          <div className="w-full sm:w-1/2 flex flex-row justify-around">
             <Button buttonTitle="Modifier" />
             <Button
               buttonTitle="Supprimer"
-              buttonClassName="bg-secondary-100"
+              buttonClassName="bg-secondary-100 hover:bg-secondary-150"
             />
           </div>
         </div>
