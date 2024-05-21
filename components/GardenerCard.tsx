@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import supabase from "../config/supabaseClient";
 import GardenerInformations from "./Modals/GardenerInformations";
 
 interface Gardener {
@@ -14,40 +13,56 @@ interface Gardener {
   cotisation: boolean;
   assurance: boolean;
 }
-
+interface EventCount {
+  type1: number;
+  type2: number;
+}
 const GardenerCards = () => {
   const [openModal, setOpenModal] = useState(false);
-  const [selectedGardener, setSelectedGardener] = useState<Gardener | null>(
-    null
-  );
-
+  const [selectedGardener, setSelectedGardener] = useState<Gardener | null>(null);
   const [gardeners, setGardeners] = useState<Gardener[]>([]);
-  const handleOpenModal = (gardener: Gardener) => {
-    setSelectedGardener(gardener);
-    setOpenModal(true);
-  };
-
+  const [eventType, setEventType] = useState<EventCount>({ type1: 0, type2: 0 });
+  const [eventName, setEventName] = useState<String>("")
+  
   useEffect(() => {
     async function getGardeners() {
-      const { data, error } = await supabase.from("Gardener").select("*");
-
-      if (error) {
-        console.error(error);
-        return;
-      }
-
-      if (data) {
-        console.log(data);
+      try {
+        const response = await fetch('/api/gardener');
+        const data = await response.json();
         setGardeners(data);
+        console.log(data)
+      } catch (error) {
+        console.error('Failed to fetch gardener:', error);
       }
     }
 
     getGardeners();
   }, []);
+  
+  async function getEventsByGardener(gardenerId: number) {
+    try {
+      const response = await fetch(`/api/event?gardenerId=${gardenerId}`);
+      const data = await response.json();
+
+      const countType1 = data.filter((event: { type: number }) => event.type === 1).length;
+      const countType2 = data.filter((event: { type: number }) => event.type === 2).length;
+
+      setEventType({ type1: countType1, type2: countType2 });
+    } catch (error) {
+      console.error('Failed to fetch events:', error);
+    }
+  }
+
+  const handleOpenModal = (gardener: Gardener) => {
+    setSelectedGardener(gardener);
+    setOpenModal(true);
+    getEventsByGardener(gardener.id);
+  };
 
   function isValid(caution: boolean) {
     return caution;
   }
+
 
   return (
     <div className="grid grid-cols-4 gap-4 grid-rows-9 h-full place-items-center">
@@ -70,6 +85,8 @@ const GardenerCards = () => {
           gardenerInformations={selectedGardener}
           handleCloseModal={() => setOpenModal(false)}
           isValid={isValid}
+          eventType={eventType}
+          eventName={eventName}
         />
       )}
     </div>

@@ -1,7 +1,13 @@
-import { Box, Modal } from "@mui/material";
+import { Box, Modal, Tooltip } from "@mui/material";
 import Check from "../../public/Check";
 import Cross from "../../public/Cross";
+import TooltipIcon from "../../public/Tooltip";
 import Button from "../Button";
+
+interface EventCount {
+  type1: number;
+  type2: number;
+}
 interface GardenerInformationsProps {
   gardenerInformations?: {
     id: number;
@@ -13,12 +19,17 @@ interface GardenerInformationsProps {
     cotisation: boolean;
     assurance: boolean;
   };
+
   handleCloseModal: () => void;
   isValid: (caution: boolean) => boolean;
+  eventType: EventCount;
+  eventName: string;
 }
 
 const GardenerInformations: React.FC<GardenerInformationsProps> = ({
   gardenerInformations,
+  eventType,
+  eventName,
   handleCloseModal,
   isValid,
 }) => {
@@ -162,7 +173,23 @@ const GardenerInformations: React.FC<GardenerInformationsProps> = ({
             <div className="flex flex-col justify-between border-2 drop-shadow-sm rounded-lg  p-2 w-1/2 sm:w-1/3">
               <h4 className="text-center font-medium">Evènements</h4>
               <ul>
-                <li>Corvées : 2</li> <li>Locations : 2</li>
+                <div className="flex flex-row">
+                  {" "}
+                  <li className="mr-2">Corvées : {eventType.type1} </li>{" "}
+                  <Tooltip title="add" placement="right">
+                    <button>
+                      <TooltipIcon />
+                    </button>
+                  </Tooltip>
+                </div>
+                <div className="flex flex-row">
+                  <li className="mr-2">Locations : {eventType.type2}</li>
+                  <Tooltip title="Add" placement="right">
+                    <button>
+                      <TooltipIcon />
+                    </button>
+                  </Tooltip>
+                </div>
               </ul>
             </div>
           </div>
