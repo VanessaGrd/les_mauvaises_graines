@@ -33,6 +33,7 @@ const GardenerInformations: React.FC<GardenerInformationsProps> = ({
   handleCloseModal,
   isValid,
 }) => {
+  const tooltipItems = [];
   const style = {
     position: "absolute",
     display: "flex",
@@ -170,18 +171,22 @@ const GardenerInformations: React.FC<GardenerInformationsProps> = ({
                 {isValid(gardenerInformations.caution) ? <Check /> : <Cross />}
               </li>
             </ul>
+            
             <div className="flex flex-col justify-between border-2 drop-shadow-sm rounded-lg  p-2 w-1/2 sm:w-1/3">
               <h4 className="text-center font-medium">Evènements</h4>
+
+              <div className="flex flex-row">
+                <li className="mr-2">
+                  Corvée : {eventType.type1}
+                </li>
+                <Tooltip title={eventName} placement="right">
+                  <button>
+                    <TooltipIcon />
+                  </button>
+                </Tooltip>
+              </div>
+
               <ul>
-                <div className="flex flex-row">
-                  {" "}
-                  <li className="mr-2">Corvées : {eventType.type1} </li>{" "}
-                  <Tooltip title="add" placement="right">
-                    <button>
-                      <TooltipIcon />
-                    </button>
-                  </Tooltip>
-                </div>
                 <div className="flex flex-row">
                   <li className="mr-2">Locations : {eventType.type2}</li>
                   <Tooltip title="Add" placement="right">

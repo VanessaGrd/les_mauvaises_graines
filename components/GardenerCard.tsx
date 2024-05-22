@@ -17,39 +17,56 @@ interface EventCount {
   type1: number;
   type2: number;
 }
+
+interface Event {
+  id: number;
+  name: string;
+  date: string;
+  hour: string;
+  type: number;
+}
 const GardenerCards = () => {
   const [openModal, setOpenModal] = useState(false);
-  const [selectedGardener, setSelectedGardener] = useState<Gardener | null>(null);
+  const [selectedGardener, setSelectedGardener] = useState<Gardener | null>(
+    null
+  );
   const [gardeners, setGardeners] = useState<Gardener[]>([]);
-  const [eventType, setEventType] = useState<EventCount>({ type1: 0, type2: 0 });
-  const [eventName, setEventName] = useState<String>("")
-  
+  const [eventType, setEventType] = useState<EventCount>({
+    type1: 0,
+    type2: 0,
+  });
+  const [eventName, setEventName] = useState("");
+
   useEffect(() => {
     async function getGardeners() {
       try {
-        const response = await fetch('/api/gardener');
+        const response = await fetch("/api/gardener");
         const data = await response.json();
         setGardeners(data);
-        console.log(data)
       } catch (error) {
-        console.error('Failed to fetch gardener:', error);
+        console.error("Failed to fetch gardener:", error);
       }
     }
-
     getGardeners();
   }, []);
-  
+
   async function getEventsByGardener(gardenerId: number) {
     try {
       const response = await fetch(`/api/event?gardenerId=${gardenerId}`);
       const data = await response.json();
-
-      const countType1 = data.filter((event: { type: number }) => event.type === 1).length;
-      const countType2 = data.filter((event: { type: number }) => event.type === 2).length;
-
+      console.log(data);
+      const countType1 = data.filter((event: Event) => event.type === 1).length;
+      const nameType1 = data
+        .filter((event: Event) => event.type === 1)
+        .map((event: Event) => event.name);
+      const countType2 = data.filter(
+        (event: { type: number }) => event.type === 2
+      ).length;
       setEventType({ type1: countType1, type2: countType2 });
+      setEventName(nameType1);
+      console.log(nameType1);
     } catch (error) {
-      console.error('Failed to fetch events:', error);
+      console.error("Failed to fetch events:", error);
     }
   }
 
@@ -62,7 +79,6 @@ const GardenerCards = () => {
   function isValid(caution: boolean) {
     return caution;
   }
-
 
   return (
     <div className="grid grid-cols-4 gap-4 grid-rows-9 h-full place-items-center">
