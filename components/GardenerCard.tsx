@@ -25,9 +25,13 @@ interface Event {
   hour: string;
   type: number;
 }
+interface EventDetails {
+  name: string;
+  date: string;
+}
 interface EventName {
-  name1: string[];
-  name2: string[];
+  name1: EventDetails[];
+  name2: EventDetails[];
 }
 const GardenerCards = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -63,12 +67,12 @@ const GardenerCards = () => {
       console.log(data);
       const nameType1 = data
         .filter((event: Event) => event.type === 1)
-        .map((event: Event) => event.name);
+        .map((event: Event) =>({name : event.name, date: event.date}));
       const countType1 = nameType1.length;
 
       const nameType2 = data
         .filter((event: Event) => event.type === 2)
-        .map((event: Event) => event.name);
+        .map((event: Event) => ({name : event.name, date: event.date}));
       console.log(nameType1);
       const countType2 = nameType2.length;
 

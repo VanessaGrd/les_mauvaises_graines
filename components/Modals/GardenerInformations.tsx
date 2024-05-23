@@ -8,6 +8,10 @@ interface EventCount {
   type1: number;
   type2: number;
 }
+interface EventDetails {
+  name: string;
+  date: string;
+}
 interface GardenerInformationsProps {
   gardenerInformations?: {
     id: number;
@@ -23,7 +27,10 @@ interface GardenerInformationsProps {
   handleCloseModal: () => void;
   isValid: (caution: boolean) => boolean;
   eventType: EventCount;
-  eventName: any;}
+  eventName: {
+    name1: EventDetails[];
+    name2: EventDetails[];
+  };}
 
 const GardenerInformations: React.FC<GardenerInformationsProps> = ({
   gardenerInformations,
@@ -175,10 +182,15 @@ const GardenerInformations: React.FC<GardenerInformationsProps> = ({
               <h4 className="text-center font-medium">Evènements</h4>
 
               <div className="flex flex-row">
-                <li className="mr-2">
+                <li className="mr-2 list-none">
                   Corvée : {eventType.type1}
                 </li>
-                <Tooltip title={eventName.name1.join(", ")} placement="right">
+                <Tooltip
+                  title={eventName.name1
+                    .map((event) => `${event.name} (${event.date})`)
+                    .join(", ")}
+                  placement="right"
+                >
                   <button>
                     <TooltipIcon />
                   </button>
@@ -188,7 +200,12 @@ const GardenerInformations: React.FC<GardenerInformationsProps> = ({
               <ul>
                 <div className="flex flex-row">
                   <li className="mr-2">Locations : {eventType.type2}</li>
-                  <Tooltip title={eventName.name2.join(", ")} placement="right">
+                  <Tooltip
+                  title={eventName.name2
+                    .map((event) => `${event.name} (${event.date})`)
+                    .join(", ")}
+                  placement="right"
+                >
                     <button>
                       <TooltipIcon />
                     </button>
