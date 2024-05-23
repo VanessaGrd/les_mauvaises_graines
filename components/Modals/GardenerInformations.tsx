@@ -23,8 +23,7 @@ interface GardenerInformationsProps {
   handleCloseModal: () => void;
   isValid: (caution: boolean) => boolean;
   eventType: EventCount;
-  eventName: string;
-}
+  eventName: any;}
 
 const GardenerInformations: React.FC<GardenerInformationsProps> = ({
   gardenerInformations,
@@ -179,7 +178,7 @@ const GardenerInformations: React.FC<GardenerInformationsProps> = ({
                 <li className="mr-2">
                   Corvée : {eventType.type1}
                 </li>
-                <Tooltip title={eventName} placement="right">
+                <Tooltip title={eventName.name1.join(", ")} placement="right">
                   <button>
                     <TooltipIcon />
                   </button>
@@ -189,7 +188,7 @@ const GardenerInformations: React.FC<GardenerInformationsProps> = ({
               <ul>
                 <div className="flex flex-row">
                   <li className="mr-2">Locations : {eventType.type2}</li>
-                  <Tooltip title="Add" placement="right">
+                  <Tooltip title={eventName.name2.join(", ")} placement="right">
                     <button>
                       <TooltipIcon />
                     </button>

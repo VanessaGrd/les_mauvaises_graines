@@ -25,6 +25,10 @@ interface Event {
   hour: string;
   type: number;
 }
+interface EventName {
+  name1: string[];
+  name2: string[];
+}
 const GardenerCards = () => {
   const [openModal, setOpenModal] = useState(false);
   const [selectedGardener, setSelectedGardener] = useState<Gardener | null>(
@@ -35,8 +39,10 @@ const GardenerCards = () => {
     type1: 0,
     type2: 0,
   });
-  const [eventName, setEventName] = useState("");
-
+  const [eventName, setEventName] = useState<EventName>({
+    name1: [],
+    name2: [],
+  });
   useEffect(() => {
     async function getGardeners() {
       try {
@@ -55,16 +61,19 @@ const GardenerCards = () => {
       const response = await fetch(`/api/event?gardenerId=${gardenerId}`);
       const data = await response.json();
       console.log(data);
-      const countType1 = data.filter((event: Event) => event.type === 1).length;
       const nameType1 = data
         .filter((event: Event) => event.type === 1)
         .map((event: Event) => event.name);
-      const countType2 = data.filter(
-        (event: { type: number }) => event.type === 2
-      ).length;
-      setEventType({ type1: countType1, type2: countType2 });
-      setEventName(nameType1);
+      const countType1 = nameType1.length;
+
+      const nameType2 = data
+        .filter((event: Event) => event.type === 2)
+        .map((event: Event) => event.name);
       console.log(nameType1);
+      const countType2 = nameType2.length;
+
+      setEventType({ type1: countType1, type2: countType2 });
+setEventName({name1: nameType1, name2: nameType2});
     } catch (error) {
       console.error("Failed to fetch events:", error);
     }
