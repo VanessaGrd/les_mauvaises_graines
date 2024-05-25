@@ -23,14 +23,14 @@ interface GardenerInformationsProps {
     cotisation: boolean;
     assurance: boolean;
   };
-
   handleCloseModal: () => void;
   isValid: (caution: boolean) => boolean;
   eventType: EventCount;
   eventName: {
     name1: EventDetails[];
     name2: EventDetails[];
-  };}
+  };
+}
 
 const GardenerInformations: React.FC<GardenerInformationsProps> = ({
   gardenerInformations,
@@ -177,14 +177,12 @@ const GardenerInformations: React.FC<GardenerInformationsProps> = ({
                 {isValid(gardenerInformations.caution) ? <Check /> : <Cross />}
               </li>
             </ul>
-            
+
             <div className="flex flex-col justify-between border-2 drop-shadow-sm rounded-lg  p-2 w-1/2 sm:w-1/3">
               <h4 className="text-center font-medium">Evènements</h4>
 
               <div className="flex flex-row">
-                <li className="mr-2 list-none">
-                  Corvée : {eventType.type1}
-                </li>
+                <li className="mr-2 list-none">Corvée : {eventType.type1}</li>
                 <Tooltip
                   title={eventName.name1
                     .map((event) => `${event.name} (${event.date})`)
@@ -201,11 +199,11 @@ const GardenerInformations: React.FC<GardenerInformationsProps> = ({
                 <div className="flex flex-row">
                   <li className="mr-2">Locations : {eventType.type2}</li>
                   <Tooltip
-                  title={eventName.name2
-                    .map((event) => `${event.name} (${event.date})`)
-                    .join(", ")}
-                  placement="right"
-                >
+                    title={eventName.name2
+                      .map((event) => `${event.name} (${event.date})`)
+                      .join(", ")}
+                    placement="right"
+                  >
                     <button>
                       <TooltipIcon />
                     </button>
